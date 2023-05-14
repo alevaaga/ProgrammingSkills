@@ -31,7 +31,7 @@ search_index = locator[partition_key]
 matches = search_index.find_closest(embedding_vector, k=result_count)
 ```
 
-### Good Luck, and talk soon!
+### See you in 30 min. Good Luck!
 
 
 

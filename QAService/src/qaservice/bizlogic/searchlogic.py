@@ -38,15 +38,4 @@ class SearchLogic:
         return result
 
     def find(self, query: Query) -> SearchResult:
-        partition_id = query.partition_id
-        query_str = query.query
-        max_results = query.max_results
-
-        emb = self.embedding_service.embed(query_str)
-        trans_emb = self.translator_service.translate(emb)
-
-        index_service = self.locator[partition_id]
-        answers = index_service.find_closest(trans_emb, k=max_results)
-
-        results = self._build_response(answers)
         return results

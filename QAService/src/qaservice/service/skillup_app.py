@@ -20,8 +20,6 @@ def initialize():
 
 @app.post(path="/answer", response_model=SearchResult)
 def find_answer(query: Query) -> SearchResult:
-    search_logic = SearchLogic(dataset=dataset)
-    results = search_logic.find(query)
     return results
 
 
