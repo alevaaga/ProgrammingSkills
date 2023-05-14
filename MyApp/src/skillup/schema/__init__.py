@@ -1,1 +1,1 @@
-from schema import EPQuery, EPInfo, EPSearchResult
+from .schema import Query, AnswerInfo, SearchResult
