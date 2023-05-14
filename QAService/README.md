@@ -5,10 +5,34 @@ And, they charged us money for it. If I had been here during at the time when th
 written, I would have canceled the contract on the spot!
 
 **[You]** It never ceases to amaze me, the number of coders out there that don't care about neither
-the quality nor the aesthetics of their code. But don't worr, we gotcha back! We will have
+the quality nor the aesthetics of their code. But don't worry, we gotcha back! We will have
 this refactored in no time!
 
-**[Customer]** Alright. Let me know when you're done.
+**[Customer]** Alright. Let me know when you're done!
+
+Good thing we didn't write that code in the first place, or we would have been in trouble! <br>
+Now, let's clean up this mess! <br><br>
+
+I have started by creating some project structure in the **src** directory. I have also a few sceleton classes <br>
+that you can finish. To save some time I took it upon myself to write the **FAISS index** stuff. You can treat <br>
+the **SearchIndexLocator** as a dict to lookup the right search index for a given partition like so: <br>
+
+```python
+locator = SearchIndexLocator(
+            index_loader=self._load_index,
+            embedding_column="answer_embedding",
+            partition=["partition_id"],
+            labels_columns=["partition_id", "row_id"]
+        )
+
+partition_key = .....
+search_index = locator[partition_key]
+
+matches = search_index.find_closest(embedding_vector, k=result_count)
+```
+
+### Good Luck, and talk soon!
+
 
 
 
