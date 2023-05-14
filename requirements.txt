@@ -1,0 +1,6 @@
+datasets
+faiss-cpu
+fastapi
+pip-chill
+sentence-transformers
+uvicorn

@@ -1,17 +1,14 @@
-from typing import List
-
 import uvicorn
 from fastapi import FastAPI, HTTPException
 from sentence_transformers import SentenceTransformer
 import numpy as np
-from skillup.bizlogic.searchlogic import EPSearchLogic
-from skillup.schema import SearchResult, Query
 import os
-
-from skillup.service.embeddingindex import EmbeddingIndex
-from skillup.service.translator import nn_mlp_512_x_n_translator_prg1, nn_mlp_512_x_n_translator_prg2
-from skillup.service.utils import clean
+from crappyapp.embeddingindex import EmbeddingIndex
+from crappyapp.translator import nn_mlp_512_x_n_translator_prg1, nn_mlp_512_x_n_translator_prg2
+from crappyapp.utils import clean
 import pandas as pd
+from typing import List
+from pydantic import BaseModel
 
 
 DATAFRAME_PATH = "../DevAssets/preprocessed.parquet"
@@ -58,6 +55,23 @@ EMBEDDING_INDEX_FOR_PROGRAM_2 = load_index(partition_id=2)
 app = FastAPI()
 
 
+class Query(BaseModel):
+    partition_id: int
+    query: str
+    max_results: int
+
+
+class AnswerInfo(BaseModel):
+    row_id: int
+    partition_id: int
+    similarity: float
+    answer_tx: str
+
+
+class SearchResult(BaseModel):
+    answers: List[AnswerInfo]
+
+
 def get_embedding(txt: str) -> np.ndarray:
     '''
     Embed the provided text
@@ -92,6 +106,7 @@ def get_nn_translated_embedding(
         The "translated" embedding vector
 
     Raises
+    ------
     ------
     HTTPException
         Basic validation of the embedding vector
@@ -128,8 +143,8 @@ def find_the_answers_that_closest_answers_the_query(query_embedding: List[float]
     return result
 
 
-@app.post(path="/find_ep", response_model=SearchResult)
-def find_ep(query: Query) -> SearchResult:
+@app.post(path="/answer", response_model=SearchResult)
+def find_answer(query: Query) -> SearchResult:
     embedding = get_embedding(query.query)
     translated_embedding = get_nn_translated_embedding(embedding.tolist(), query.partition_id)
     matches =find_the_answers_that_closest_answers_the_query(
@@ -151,15 +166,5 @@ def find_ep(query: Query) -> SearchResult:
     return result
 
 
-
-
-# @app.post(path="/find_ep", response_model=EPSearchResult)
-# def find_ep(query: EPQuery) -> EPSearchResult:
-#     searchlogic = EPSearchLogic()
-#     result_list = searchlogic.find(query)
-#     result = EPSearchResult(eps=result_list)
-#     return result
-#
-
 if __name__ == '__main__':
-    uvicorn.run("skillup.service.skillup_app:app", host="0.0.0.0", port=8080, reload=True)
+    uvicorn.run("crappyapp.crappy_app:app", host="0.0.0.0", port=8080, reload=True)
