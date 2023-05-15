@@ -2,6 +2,7 @@ import pandas as pd
 from qaservice.domain import EmbeddingService, TranslatorService, SearchIndexLocator
 from qaservice.schema import Query
 from skillup.search.schema import SearchResult
+from qaservice.common import clean
 
 
 class SearchLogic:
@@ -39,7 +40,7 @@ class SearchLogic:
 
     def find(self, query: Query) -> SearchResult:
         partition_id = query.partition_id
-        query_str = query.query
+        query_str = clean(query.query)
         max_results = query.max_results
 
         emb = self.embedding_service.embed(query_str)
