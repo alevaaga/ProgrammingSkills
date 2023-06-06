@@ -1,8 +1,7 @@
 import uvicorn
 from fastapi import FastAPI
 import pandas as pd
-from qaservice.bizlogic import SearchLogic
-from qaservice.schema import SearchResult, Query
+from qaservice.common.schema import SearchResult, Query
 
 SEARCH_INDEX_PATH = "../DevAssets/preprocessed.parquet"
 
