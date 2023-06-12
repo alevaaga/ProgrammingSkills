@@ -2,7 +2,7 @@ import uvicorn
 from fastapi import FastAPI
 import pandas as pd
 from qaservice.bizlogic import SearchLogic
-from qaservice.common import Query, SearchResult
+from qaservice.common.schemas import Query, SearchResult
 from qaservice.domain import EmbeddingServiceFactory, ServiceType
 import os
 

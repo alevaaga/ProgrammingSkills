@@ -1,7 +1,7 @@
 import uvicorn
 from fastapi import FastAPI
 from qaservice.bizlogic import EmbeddingLogic
-from qaservice.common import TextInput, Embedding
+from qaservice.common.schemas import Embedding, TextInput
 from qaservice.domain import EmbeddingServiceFactory, ServiceType
 
 SBERT_MODEL_NAME = "diptanuc/all-mpnet-base-v2"
