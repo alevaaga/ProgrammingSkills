@@ -4,6 +4,10 @@ import pandas as pd
 from qaservice.bizlogic import SearchLogic
 from qaservice.common import Query, SearchResult
 from qaservice.domain import EmbeddingServiceFactory, ServiceType
+import os
+
+# QASERVICE_STAGE should be one of: [local, dev, uat, prod]
+QASERVICE_STAGE = os.getenv("QASERVICE_STAGE", "local")
 
 SEARCH_INDEX_PATH = "../DevAssets/preprocessed.parquet"
 
@@ -25,8 +29,10 @@ def initialize():
     dataset = dataset.reset_index(inplace=False)
     dataset = dataset.rename(columns={"index": "row_id"})
 
-    EmbeddingServiceFactory.select_service(ServiceType.TYPE_REMOTE, service_url=EMBEDDING_SERVICE_URL)
-    # EmbeddingServiceFactory.select_service(ServiceType.TYPE_LOCAL, model_name=SBERT_MODEL_NAME, cache_dir=CACHE_DIRECTORY)
+    if QASERVICE_STAGE == "local":
+        EmbeddingServiceFactory.select_service(ServiceType.TYPE_LOCAL, model_name=SBERT_MODEL_NAME, cache_dir=CACHE_DIRECTORY)
+    else:
+        EmbeddingServiceFactory.select_service(ServiceType.TYPE_REMOTE, service_url=EMBEDDING_SERVICE_URL)
 
 
 @app.post(path="/answer", response_model=SearchResult)
