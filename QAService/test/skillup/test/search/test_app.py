@@ -1,7 +1,6 @@
 import requests
 from pydantic import parse_obj_as
-
-from skillup.search.schema import Query, SearchResult
+from skillup.test.search.schema import Query, SearchResult
 
 
 def main():
@@ -15,6 +14,9 @@ def main():
     assert len(data.answers) > 0, "Wrong number of rows returned"
 
     print("Success")
+    for answer in data.answers:
+        print(answer)
+
 
 if __name__ == '__main__':
     main()
