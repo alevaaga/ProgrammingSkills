@@ -1,7 +1,6 @@
 import pandas as pd
 from qaservice.domain import EmbeddingService, TranslatorService, SearchIndexLocator
 from qaservice.common import Query, SearchResult
-from skillup.search.schema import SearchResult
 from qaservice.common import clean
 
 

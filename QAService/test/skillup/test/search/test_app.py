@@ -1,5 +1,5 @@
 import requests
-from skillup.search.schema import Query, SearchResult
+from skillup.test.search.schema import Query, SearchResult
 
 
 def main():
