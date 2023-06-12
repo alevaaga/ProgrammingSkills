@@ -1,6 +1,6 @@
 import pandas as pd
 from qaservice.domain import TranslatorService, SearchIndexLocator, EmbeddingServiceFactory
-from qaservice.common import Query, SearchResult
+from qaservice.common.schemas import Query, SearchResult
 from qaservice.common import clean
 
 

@@ -1,5 +1,5 @@
 import requests
-from qaservice.common import TextInput, Embedding
+from qaservice.common.schemas import TextInput, Embedding
 
 
 def main():
