@@ -1,19 +1,14 @@
 import pandas as pd
-from qaservice.domain import EmbeddingService, TranslatorService, SearchIndexLocator
+from qaservice.domain import TranslatorService, SearchIndexLocator, EmbeddingServiceFactory
 from qaservice.common import Query, SearchResult
 from qaservice.common import clean
 
 
 class SearchLogic:
-    SBERT_MODEL_NAME = "diptanuc/all-mpnet-base-v2"
-    CACHE_DIRECTORY = "../Models/sentence_transformers"
 
     def __init__(self, dataset: pd.DataFrame):
         self.dataset = dataset
-        self.embedding_service = EmbeddingService(
-            model_name=SearchLogic.SBERT_MODEL_NAME,
-            cache_dir=SearchLogic.CACHE_DIRECTORY
-        )
+        self.embedding_service = EmbeddingServiceFactory.get()
         self.translator_service = TranslatorService()
         self.locator = SearchIndexLocator(
             index_loader=self._load_index,

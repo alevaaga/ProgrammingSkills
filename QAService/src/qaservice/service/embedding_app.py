@@ -2,16 +2,20 @@ import uvicorn
 from fastapi import FastAPI
 from qaservice.bizlogic import EmbeddingLogic
 from qaservice.common import TextInput, Embedding
+from qaservice.domain import EmbeddingServiceFactory, ServiceType
 
 SBERT_MODEL_NAME = "diptanuc/all-mpnet-base-v2"
 CACHE_DIRECTORY = "../Models/sentence_transformers"
-
 app = FastAPI()
 
 
+@app.on_event("startup")
 def initialize():
-    embedding_service = EmbeddingLogic.get()
-    embedding_service.configure()
+    EmbeddingServiceFactory.select_service(
+        ServiceType.TYPE_LOCAL,
+        model_name=SBERT_MODEL_NAME,
+        cache_directory=CACHE_DIRECTORY
+    )
 
 
 @app.post(path="/embed", response_model=Embedding)
