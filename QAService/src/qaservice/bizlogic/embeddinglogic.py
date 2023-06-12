@@ -1,5 +1,5 @@
 from qaservice.domain import EmbeddingServiceFactory
-from qaservice.common import TextInput, Embedding
+from qaservice.common.schemas import TextInput, Embedding
 
 
 class EmbeddingLogic:
