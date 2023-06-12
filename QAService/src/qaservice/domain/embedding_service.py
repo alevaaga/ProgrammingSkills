@@ -4,7 +4,7 @@ from enum import Enum
 import numpy as np
 import os
 from sentence_transformers import SentenceTransformer
-from qaservice.common import TextInput, Embedding
+from qaservice.common.schemas import TextInput, Embedding
 import requests
 
 
