@@ -14,5 +14,13 @@ Good thing **"we"** didn't write that code in the first place, or we would have 
 Now, let's clean up this mess! <br><br>
 
 **[Step 1]**
-Analyze the existing codebase:<br>
-- Look over the code and identify shortcomings. 
+Do a code analysis and document your findings.<br>
+The first step in a refactoring job is to get a high-level overview of what the code is doing, and<br>
+how it's doing it.<br>
+<br>
+What type of objects are present?<br>
+Which layering strategy has been chosen if any?<br>
+How well is the code separated?<br>
+Does the code follow the principals of SOLID?<br><br>
+Make a list of at least 5 shortcomings<br>
+Make a note on how you would go about fixing the issue<br><br>
