@@ -13,6 +13,32 @@ this refactored in no time!
 Good thing **"we"** didn't write that code in the first place, or we would have been in trouble! <br>
 Now, let's clean up this mess! <br><br>
 
+**[Step 1]**
+Do a code analysis and document your findings.<br>
+The first step in a refactoring job is to get a high-level overview of what the code is doing, and<br>
+how it's doing it.<br>
+<br>
+What type of objects are present?<br>
+Which layering strategy has been chosen if any?<br>
+How well is the code separated?<br>
+Does the code follow the principals of SOLID?<br><br>
+Make a list of at least 5 shortcomings<br>
+Make a note on how you would go about fixing the issue<br><br> 
+
+**[Issues]**
+1) Everything in one file<br>
+2) Unnecessary documentation<br>
+3) Poor naming of constants<br>
+4) Try-catch outside the program scope?<br>
+5) Poorly named functions<br>
+6) What the function does, do not correspond with the name<br>
+7) Code repetition, if-else<br>
+8) Throwing HTTPException from within business logic<br>
+9) Missing documentation on the API<br>
+10) Does not follow any best practices whatsoever!<br><br>
+
+
+**[Step 2]**
 I have started by creating some project structure in the **src** directory. I have also created a few <br> 
 sceleton classes for you to finish. To save some time I took it upon myself to write the **FAISS index** stuff. <br>
 You can treat the **SearchIndexLocator** as a dict to lookup the right search index for a given partition like so: <br>
@@ -35,7 +61,7 @@ matches = search_index.find_closest(embedding_vector, k=result_count)
 To test the code, start the server by running **skillup_app.py**. Make sure to start it from the **src** directory.<br>
 Then run the **test_app.py**. Make sure to start it from the **test** directory
 
-### See you in 30 min. Good Luck!
+### See you in 20 min. Good Luck!
 
 
 
