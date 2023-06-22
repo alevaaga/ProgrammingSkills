@@ -1,7 +1,9 @@
 import pandas as pd
-from qaservice.domain import EmbeddingService, TranslatorService, SearchIndexLocator
+from qaservice.domain import TranslatorService, SearchIndexLocator
 from qaservice.common import Query, SearchResult
 from qaservice.common import clean
+from qaservice.domain.embedding_service import LocalEmbeddingService, RemoteEmbeddingService, ServiceType
+import os
 
 
 class SearchLogic:
@@ -10,10 +12,15 @@ class SearchLogic:
 
     def __init__(self, dataset: pd.DataFrame):
         self.dataset = dataset
-        self.embedding_service = EmbeddingService(
-            model_name=SearchLogic.SBERT_MODEL_NAME,
-            cache_dir=SearchLogic.CACHE_DIRECTORY
-        )
+        service_type = os.getenv("RUNTIME_ENVIRONMENT", "local")
+        embedding_url = os.getenv("EMBEDDING_URL", "http://localhost:8080/")
+
+        match service_type:
+            case ServiceType.TYPE_LOCAL:
+                self.embedding_service = LocalEmbeddingService()
+            case ServiceType.TYPE_REMOTE:
+                self.embedding_service = RemoteEmbeddingService(service_url=embedding_url)
+
         self.translator_service = TranslatorService()
         self.locator = SearchIndexLocator(
             index_loader=self._load_index,
